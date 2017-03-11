@@ -15,8 +15,8 @@ class Suite(Pmf):
         self.Normalize()
 
     def Print(self):
-        for hypo in self.Values():
-            print(hypo)
+        for hypo, prob in self.Items():
+            print(hypo, prob)
 
     def Likelihood(self, data, hypo):
         pass

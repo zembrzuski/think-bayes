@@ -1,4 +1,5 @@
 from thinkbayes import Pmf
+from chap02_file04_encapsulating_framework import Suite
 
 ### the cookie problem
 
@@ -30,19 +31,7 @@ print(pmf.Prob('Bowl 2'))
 ### refactoring now.
 ### I can't understand why is he doing it now.
 
-class Cookie(Pmf):
-
-    def __init__(self, hypos):
-        Pmf.__init__(self)
-        for hypo in hypos:
-            self.Set(hypo, 1)
-        self.Normalize()
-
-    def Update(self, data):
-        for hypo in self.Values():
-            like = self.Likelihood(data, hypo)
-            self.Mult(hypo, like)
-        self.Normalize()
+class Cookie(Suite):
 
     mixes = {
         'Bowl 1': dict(vanilla=0.75, chocolate=0.25),
@@ -58,8 +47,4 @@ class Cookie(Pmf):
 hypos = ['Bowl 1', 'Bowl 2']
 pmf = Cookie(hypos)
 pmf.Update('vanilla')
-
-for hypo, prob in pmf.Items():
-    print(hypo, prob)
-
-
+pmf.Print()
